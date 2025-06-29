@@ -5,6 +5,7 @@
   "description": "Japanese Line Break Organizer",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
+  "source": "src/index.ts",
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
