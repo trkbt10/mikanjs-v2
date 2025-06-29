@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Demo</title>
+  <link href="//fonts.googleapis.com/css?family=RobotoDraft:100,300,400,500,700" rel=
+    "stylesheet">
+</head>
+<body>
+  <div class="controls">
+    <input type="text" placeholder="ここに文章を入力" id="input"/>
+    <div class="sample-selection">
+      <label for="sampleSelect">サンプル文字列を選択:</label>
+      <select id="sampleSelect">
+        <option value="">-- サンプルを選択してください --</option>
+        <option value="やりたいことのそばにいる">やりたいことのそばにいる</option>
+        <option value="私は昨日友達と映画を見に行きました">私は昨日友達と映画を見に行きました</option>
+        <option value="春の桜が美しく咲いている公園で散歩をした">春の桜が美しく咲いている公園で散歩をした</option>
+        <option value="今日は良い天気なので洗濯物を干しました">今日は良い天気なので洗濯物を干しました</option>
+        <option value="プログラミングを学ぶことはとても楽しいです">プログラミングを学ぶことはとても楽しいです</option>
+        <option value="吾輩は猫である。名前はまだ無い。">吾輩は猫である。名前はまだ無い。</option>
+        <option value="日本語の文章を適切に分かち書きすることは難しい">日本語の文章を適切に分かち書きすることは難しい</option>
+        <option value="機械学習と自然言語処理の技術が進歩している">機械学習と自然言語処理の技術が進歩している</option>
+        <option value="新しい時代の始まりを感じさせる出来事でした">新しい時代の始まりを感じさせる出来事でした</option>
+        <option value="美味しいラーメンを食べに行こうと思います">美味しいラーメンを食べに行こうと思います</option>
+        <option value="東京駅から新幹線に乗って大阪に向かいます">東京駅から新幹線に乗って大阪に向かいます</option>
+        <option value="インターネットの普及により情報の共有が簡単になった">インターネットの普及により情報の共有が簡単になった</option>
+      </select>
+    </div>
+  </div>
+  <div id="sample">
+
+  </div>
+  <script type="module">
+    import * as Mikan from './src/index.ts';
+    
+    var sampleElement = document.getElementById('sample');
+    var input = document.getElementById('input');
+
+    function mikanHTML(sentence) {
+      var tokens = Mikan.tokenize(sentence);
+      var container = document.createElement('div');
+      tokens.forEach(function(token) {
+        var sp = document.createElement('span');
+        var textNode = document.createTextNode(token);
+        sp.style.display = 'inline-block'
+        sp.style.whiteSpace = 'nowrap'
+        sp.style.border = '1px solid #e0e0e0'
+        sp.style.borderRadius = '4px'
+        sp.style.padding = '2px 4px'
+        sp.style.margin = '2px'
+        sp.style.backgroundColor = '#f8f9fa'
+        sp.style.transition = 'all 0.2s'
+
+        sp.appendChild(textNode);
+        container.appendChild(sp);
+      })
+      return container;
+    }
+
+    function updateSample(text) {
+      var result = mikanHTML(text);
+      while (sampleElement.firstChild) {
+        sampleElement.removeChild(sampleElement.firstChild);
+      }
+      sampleElement.appendChild(result);
+    }
+
+    window.setSample = function(text) {
+      input.value = text;
+      updateSample(text);
+    }
+
+    // 初期表示
+    updateSample('やりたいことのそばにいる');
+
+    input.addEventListener('input', function(e) {
+      updateSample(e.target.value);
+    });
+
+    // セレクトボックスのイベントリスナー
+    var sampleSelect = document.getElementById('sampleSelect');
+    sampleSelect.addEventListener('change', function(e) {
+      if (e.target.value) {
+        input.value = e.target.value;
+        updateSample(e.target.value);
+      }
+    });
+  </script>
+  <style>
+  body {
+    background: #fff;
+    color: #444;
+    font: 300 16px/1.6 "RobotoDraft",arial,sans-serif;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+    padding: 20px;
+  }
+  
+  .controls {
+    max-width: 900px;
+    margin: 0 auto 40px auto;
+    text-align: center;
+  }
+  
+  #input {
+    width: 100%;
+    max-width: 600px;
+    padding: 12px 16px;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-family: inherit;
+  }
+  
+  #input:focus {
+    outline: none;
+    border-color: #4285f4;
+  }
+  
+  .sample-selection {
+    margin-top: 15px;
+  }
+  
+  .sample-selection label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 400;
+    color: #666;
+  }
+  
+  #sampleSelect {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px 12px;
+    font-size: 14px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-family: inherit;
+    background: white;
+    cursor: pointer;
+  }
+  
+  #sampleSelect:focus {
+    outline: none;
+    border-color: #4285f4;
+  }
+  
+  #sample {
+    font-family: 'RobotoDraft', arial, sans-serif;
+    color: #444;
+    font-size: 56px;
+    font-weight: 300;
+    line-height: 1.25;
+    margin: 20px auto;
+    max-width: 900px;
+    text-align: center;
+  }
+  
+  #sample span:hover {
+    background-color: #e3f2fd !important;
+    border-color: #2196f3 !important;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  @media (max-width: 768px) {
+    #sample {
+      font-size: 32px;
+    }
+    
+    #sampleSelect {
+      font-size: 12px;
+      max-width: 100%;
+    }
+  }
+  </style>
+</body>
+</html>
