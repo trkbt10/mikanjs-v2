@@ -245,12 +245,12 @@ const showParticlesStartingWithInternal = (particleTree: ParticleNode, char: str
   patterns.forEach(p => console.log(`  ${p}`));
 };
 
-// 便利な関数（ツリーを自動で渡す）
+// Convenience functions (automatically pass tree)
 export const isParticle = (s: string): boolean => isParticleWithTree(particleTree, s);
 export const findLongestParticle = (text: string, start: number): string | null => findLongestParticleWithTree(particleTree, text, start);
 export const getParticleContinuations = (particle: string): string[] => getParticleContinuationsWithTree(particleTree, particle);
 export const showParticleTree = (): void => showParticleTreeInternal(particleTree);
 export const showParticlesStartingWith = (char: string): void => showParticlesStartingWithInternal(particleTree, char);
 
-// 助詞の開始文字セット
+// Particle starter character set
 export { particleStarters };
