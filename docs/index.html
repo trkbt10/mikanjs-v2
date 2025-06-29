@@ -5,41 +5,33 @@
   <title>Demo</title>
   <link href="//fonts.googleapis.com/css?family=RobotoDraft:100,300,400,500,700" rel=
     "stylesheet">
-  <script src="./mikan.js"></script>
+  <script type="module" crossorigin src="./assets/index-azeZMm99.js"></script>
 </head>
 <body>
-  <input type="text" placeholder="ここに文章を入力" id="input"/>
+  <div class="controls">
+    <input type="text" placeholder="ここに文章を入力" id="input"/>
+    <div class="sample-selection">
+      <label for="sampleSelect">サンプル文字列を選択:</label>
+      <select id="sampleSelect">
+        <option value="">-- サンプルを選択してください --</option>
+        <option value="やりたいことのそばにいる">やりたいことのそばにいる</option>
+        <option value="私は昨日友達と映画を見に行きました">私は昨日友達と映画を見に行きました</option>
+        <option value="春の桜が美しく咲いている公園で散歩をした">春の桜が美しく咲いている公園で散歩をした</option>
+        <option value="今日は良い天気なので洗濯物を干しました">今日は良い天気なので洗濯物を干しました</option>
+        <option value="プログラミングを学ぶことはとても楽しいです">プログラミングを学ぶことはとても楽しいです</option>
+        <option value="吾輩は猫である。名前はまだ無い。">吾輩は猫である。名前はまだ無い。</option>
+        <option value="日本語の文章を適切に分かち書きすることは難しい">日本語の文章を適切に分かち書きすることは難しい</option>
+        <option value="機械学習と自然言語処理の技術が進歩している">機械学習と自然言語処理の技術が進歩している</option>
+        <option value="新しい時代の始まりを感じさせる出来事でした">新しい時代の始まりを感じさせる出来事でした</option>
+        <option value="美味しいラーメンを食べに行こうと思います">美味しいラーメンを食べに行こうと思います</option>
+        <option value="東京駅から新幹線に乗って大阪に向かいます">東京駅から新幹線に乗って大阪に向かいます</option>
+        <option value="インターネットの普及により情報の共有が簡単になった">インターネットの普及により情報の共有が簡単になった</option>
+      </select>
+    </div>
+  </div>
   <div id="sample">
 
   </div>
-  <script>
-    var sampleElement = document.getElementById('sample');
-    var input = document.getElementById('input');
-
-    sampleElement.appendChild(mikanHTML('やりたいことのそばにいる'));
-    input.addEventListener('change', function(e) {
-      var result = mikanHTML(e.target.value);
-      while (sampleElement.firstChild) {
-        sampleElement.removeChild(sampleElement.firstChild);
-      }
-      sampleElement.appendChild(result);
-    });
-
-    function mikanHTML(sentence) {
-      var tokens = Mikan.split(sentence);
-      var container = document.createElement('div');
-      tokens.forEach(function(token) {
-        var sp = document.createElement('span');
-        var textNode = document.createTextNode(token);
-        sp.style.display = 'inline-block'
-        sp.style.whiteSpace = 'nowrap'
-
-        sp.appendChild(textNode);
-        container.appendChild(sp);
-      })
-      return container;
-    }
-  </script>
   <style>
   body {
     background: #fff;
@@ -47,7 +39,59 @@
     font: 300 16px/1.6 "RobotoDraft",arial,sans-serif;
     -webkit-font-smoothing: antialiased;
     position: relative;
+    padding: 20px;
   }
+  
+  .controls {
+    max-width: 900px;
+    margin: 0 auto 40px auto;
+    text-align: center;
+  }
+  
+  #input {
+    width: 100%;
+    max-width: 600px;
+    padding: 12px 16px;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-family: inherit;
+  }
+  
+  #input:focus {
+    outline: none;
+    border-color: #4285f4;
+  }
+  
+  .sample-selection {
+    margin-top: 15px;
+  }
+  
+  .sample-selection label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 400;
+    color: #666;
+  }
+  
+  #sampleSelect {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px 12px;
+    font-size: 14px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-family: inherit;
+    background: white;
+    cursor: pointer;
+  }
+  
+  #sampleSelect:focus {
+    outline: none;
+    border-color: #4285f4;
+  }
+  
   #sample {
     font-family: 'RobotoDraft', arial, sans-serif;
     color: #444;
@@ -57,6 +101,24 @@
     margin: 20px auto;
     max-width: 900px;
     text-align: center;
+  }
+  
+  #sample span:hover {
+    background-color: #e3f2fd !important;
+    border-color: #2196f3 !important;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  @media (max-width: 768px) {
+    #sample {
+      font-size: 32px;
+    }
+    
+    #sampleSelect {
+      font-size: 12px;
+      max-width: 100%;
+    }
   }
   </style>
 </body>
