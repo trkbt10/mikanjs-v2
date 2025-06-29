@@ -2,6 +2,10 @@
 
 日本語テキストを適切な位置で改行可能にする JavaScript ライブラリです。
 
+## デモ
+
+[https://trkbt10.github.io/mikanjs-v2/](https://trkbt10.github.io/mikanjs-v2/) でライブデモを試すことができます。
+
 ## インストール
 
 ```bash
